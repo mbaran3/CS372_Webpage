@@ -6,3 +6,5 @@
 6. Usernames should be at least 4 charactes long with only lowercase letters and an optional underscore
 7. Maximum number of log in attempts should be 5, after that lock the account by either deleting or some other method.
 8. Working sign in and sign up buttons.
+9. After a set amount of time the user should automatically timeout and be logged out.
+10. A reddish brown rust-like color should also be used in the login screen.
