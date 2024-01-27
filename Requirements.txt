@@ -4,4 +4,4 @@
 4. Passwords must have at least 9 characters, at least one special character(not the dot character), one capital letter, one lower case letter, and a number.
 5. Maximum number of log in attempts should be 5, after that lock the account by either deleting or some other method.
 6. Passwords should be stored in a JSON format.
-7. Working signin an signup buttons
+7. Working sign in and sign up buttons.
