@@ -1,5 +1,6 @@
 1. When the correct username and password are entered, the user should be transported to a new page telling them they have logged in successfully
 2. On a failed login notify the users with what was incorrect about their login information.
 3. Hide the users password with special characters
-4. Passwords must have at least 9 characters, at least one special character(not dot), one capital letter, one lower case letter, and a number.
+4. Passwords must have at least 9 characters, at least one special character(not the dot character), one capital letter, one lower case letter, and a number.
 5. Maximum number of log in attempts should be 5, after that lock the account by either deleting or some other method.
+6. Passwords should be stored in a JSON format.
