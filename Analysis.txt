@@ -4,8 +4,5 @@ Implementing will take longer than usual because of this as we deal with our own
 
 
 
-
-6191.78 for 10 days
-2164.38 sys admin cost
-48.75 monthly cost
-585 yearly cost
+Economic Feasibility
+  Provided our budget of 30k we can estimate several cheif costs. Firstly our own devolper costs, using standard industry salaries our cost for 10 days comes out to around 6191.78 dollars. Next for hosting the sign in page there are two main options, doing it in house or using AWS. AWS has a yearly cost of 585 dollars while an inhouse custom system requires a 2k upfront cost and a 60k Sys Admin. We decided to use the AWS do to the cost savings in comparison. In total we calculated the total cost of 6776.78; 23223.22 dollars below budget.
