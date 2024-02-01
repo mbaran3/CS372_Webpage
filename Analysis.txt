@@ -1,0 +1,11 @@
+Technical Feasibility
+Our current knowledge with Node.JS and MangoDB is less than stellar right now. This will reduce as we work on the project however it will still mean difficulties at first.
+Implementing will take longer than usual because of this as we deal with our own lack of knowledge. We hope to use various free resources to improve our skills as we work.
+
+
+
+
+6191.78 for 10 days
+2164.38 sys admin cost
+48.75 monthly cost
+585 yearly cost
