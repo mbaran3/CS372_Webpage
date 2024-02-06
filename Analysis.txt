@@ -1,12 +1,17 @@
 Technical Feasibility
-Our current knowledge with Node.JS and MangoDB is less than stellar right now. This will reduce as we work on the project however it will still mean difficulties at first.
-Implementing will take longer than usual because of this as we deal with our own lack of knowledge. We hope to use various free resources to improve our skills as we work.
+Our current knowledge with Node.JS and MangoDB is less than stellar right now. 
+This will reduce as we work on the project however it will still mean difficulties at first.
+Implementing will take longer than usual because of this as we deal with our own lack of knowledge. 
+We hope to use various free resources to improve our skills as we work.
 
 Scheudle 
-I think that 10 days should be enough time to create a basic log-in page, since there are very few requirements. I don't think we would have to hire another person for something that has such low standards.
+I think that 10 days should be enough time to create a basic log-in page, since there are very few requirements. 
+I don't think we would have to hire another person for something that has such low standards.
 
 Operatoinal
-The easiest lost cost method for learning Node.js or MongoDB, is probably going to be the hardest thing, So we would need some type on on boarding for the two languages that we haven't used. There is probably a fairly large amount of free information online on creating a log-in page.
+The easiest lost cost method for learning Node.js or MongoDB, is probably going to be the hardest thing. 
+So we would need some type on on boarding for the two languages that we haven't used.
+There is probably a fairly large amount of free information online on creating a log-in page.
 
 Economic Feasibility
   Provided our budget of 30k we can estimate several cheif costs. 
