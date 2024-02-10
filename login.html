@@ -1,16 +1,27 @@
-     <!DOCTYPE HTML>
 <html style= "font-family: monospace;">
 <title>Login Screen</title>
 <body bgcolor=#d94100>
-<form>
 <h1>Lorem Ipsum </h1>
 <p>Username:
-<input type=text> </input>
+<input type=text id="user"> </input>
 </p>
 <p>Password:
-<input type=text> </input>
-<button style= "color:blue;"> Login </button>
+<input type=text id="pass"> </input>
+<button style= "color:blue;" id="loginBtn" onclick="loginHdlr()"> Login </button>
 </p>
-</form>
+<script id=loginHdlr>
+function loginHdlr() {
+        document.getElementById("message").innerHTML = "Error: Everything is working as intended.";
+}
+</script>
+<p id="message" style= "color:DarkRed;background-color:white;"> </p>
 </body>
 </html>
+
+<!-- 
+ \___/
+_/. .\_
+ \___/
+  | |
+hexgoblin
+-->
