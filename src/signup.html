@@ -1,8 +1,23 @@
 	<!DOCTYPE HTML>
 <html style= "font-family: monospace;">
-<title>Sign Up Screen</title>
+<title>Sign Up</title>
 <body bgcolor=#d94100>
-<h1>Under Construction<h1> 
-<h1> Coming January 2000!</h1>
+<h1>Sign Up:</h1> 
+<p>Username:
+<input type=text id="user" name="userName"> </input> <span id="errorZone1" style="color:DarkRed;background-color:white;float=right"> </span>
+</p>
+<p>Password:
+<input type=password id="pass" name="passWord"> </input> <span id="errorZone2" style="color:DarkRed;background-color:white;float=right"> </span>
+<p>Confirm </p>
+<p> password:
+<input type=password id="pass2" name="pass2Word"> </input> <span id="errorZone3" style="color:DarkRed;background-color:white;float=right"> </span>
+</p>
+<button style= "color:blue;" id="signupBtn" onclick="signUpHdlr()"> Sign Up </button>
+<script>
+function signUpHdlr() {
+	document.getElementById("errorZone3").innerHTML = "Error: Everything is working as intended.";
+}
+</script>
+
 </body>
 </html>
