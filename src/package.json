@@ -1,0 +1,23 @@
+{
+  "name": "cs372_login_page",
+  "version": "0.0.1",
+  "description": "A basic login page for UAF CS372",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/mbaran3/CS3712_GroupProject.git"
+  },
+  "author": "Michael Baran, Katherine Halliday",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mbaran3/CS3712_GroupProject/issues"
+  },
+  "homepage": "https://github.com/mbaran3/CS3712_GroupProject#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
