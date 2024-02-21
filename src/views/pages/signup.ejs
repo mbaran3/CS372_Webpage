@@ -1,0 +1,30 @@
+	<!DOCTYPE HTML>
+<html style= "font-family: monospace;">
+<head>
+<title>Sign Up</title>
+<link rel="icon" type="image/x-icon" href="favicon.png">
+</head>
+<body bgcolor=#d94100 onload="setTimeout(leave,3000)">
+<h1>Sign Up:</h1>
+<p>Username: Must be 4 or more characters, only allowed characters are lower case and underscores. </p>
+<p>Password: Must be 9 or more characters, require: a special character(sans dot), one capital, one lower case, and a number. </p>
+<form method="post" action="http://localhost:8080/signup"> 
+<p>Username:
+<input type=text id="user" name="userName"> </input>  <span id="errorZone1" style="color:DarkRed;background-color:white;float=right"> <%=message%></span>
+</p>
+<p>Password:
+<input type=password id="pass" name="passWord"> </input> <span id="errorZone2" style="color:DarkRed;background-color:white;float=right"> <%=message2%></span>
+<p>Confirm </p>
+<p> password:
+<input type=password id="pass2" name="pass2Word"> </input> <span id="errorZone3" style="color:DarkRed;background-color:white;float=right"> <%=message3%></span>
+</p>
+<button style= "color:blue;" id="signupBtn"> Sign Up </button>
+</form>
+<script>
+function leave() {
+	alert('hey');
+	document.loaction.href="login.html"
+}
+</script>
+</body>
+</html>
