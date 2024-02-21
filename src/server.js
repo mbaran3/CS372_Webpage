@@ -91,8 +91,13 @@ app.post('/signup', (req, res) =>{
 	  res.render('pages/signup',error)
 })
 
-
 app.get('/', (req, res) =>{
+		error.message=""
+		error.message2=""
+		error.message3=""
+  res.render('pages/login',error)
+});
+app.get('/login.html', (req, res) =>{
 		error.message=""
 		error.message2=""
 		error.message3=""

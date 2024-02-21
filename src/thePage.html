@@ -4,8 +4,14 @@
 <title>The Page</title>
 <link rel="icon" type="image/x-icon" href="favicon.png">
 </head>
-<body bgcolor=#d94100>
+<body bgcolor=#d94100 method="post" onload="setTimeout(leave,30000)">
 <h1>You've logged in.</h1>
 </body>
+<script>
+function leave() {
+	alert("Timeout: Please Log Back in")
+        document.location.href="http://localhost:8080/login.html"
+}
+</script>
 </html>
 
