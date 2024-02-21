@@ -1,1 +1,1 @@
-touch "/src/info.json"
+echo "{}" > "src/info.json"
