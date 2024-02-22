@@ -88,7 +88,9 @@ app.post('/signup', (req, res) =>{
 				res.render('pages/login',error)
 			} else
 			error.message="Error: Username Taken"
-		}
+		} else
+		res.render('pages/signup',error)
+
 })
 
 app.get('/', (req, res) =>{
