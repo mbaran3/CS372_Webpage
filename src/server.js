@@ -44,10 +44,10 @@ app.post('/signup', (req, res) =>{
 		user = req.body.userName
 		pass = req.body.passWord
 		if(user.length>=4) {
-			var bool = true;
-			for(let i=0; i<user.length && bool;i++) {
-				if ((((user.charAt(i)>="a" && user.charAt(i)<="z")||(user.charAt(i)=="_"))))
-					bool = false
+			var bool = false;
+			for(let i=0; i<user.length;i++) {
+				if (user.charAt(i)!="_"&&(user.charAt(i)<"a"||user.charAt(i)>"z"))
+					bool = true
 			}
 			if (bool)
 				error.message="Error: Username Can Only Contain Lower Case and Underscores"
@@ -84,11 +84,11 @@ app.post('/signup', (req, res) =>{
 				users[user]=(obj);
 				fs.writeFile("./info.json",JSON.stringify(users),err => {if (err) throw err;});
 				error.message=""
+				console.log("Account Created!")
 				res.render('pages/login',error)
 			} else
 			error.message="Error: Username Taken"
 		}
-	  res.render('pages/signup',error)
 })
 
 app.get('/', (req, res) =>{
