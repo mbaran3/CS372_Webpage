@@ -1,11 +1,11 @@
 Must Have
-As a users in order to watch content I should see a home screen showing the content
-As a users in I should be able search content so I can find the title or genre I want to watch
-As a users when I click a video it should start playing
-As a Content Manager I should be able to add and remove conntent
-As a Content Manager I should be able to see  the amount of engadgement that the content gets
+As a viewer in order to watch content I should see a home screen showing videos.
+As a user in order to find what I want to watch I should be able search content by title or genre.
+As a user in order to watch content I should be able click a video and it should start playing.
+As a Content Manager in order to manage what videos are available I should be able to add and remove conntent.
+As a Content Manager in order to get feedback about content I should be able to see the amount of views and likes that the content gets.
 
 Nice to Have
-As a user I inorder to find new content I should see recommendations based on what other people are watching
-As a user I should be able to create a playlist of videos I want to watch
-As a user I should be able to enter my personal info in order to sign up
+As a user in order to find new content I should see recommendations based on what other people are watching.
+As a user in order to save the videos I love I should be able to create a playlist of videos I want to watch.
+As a user in order to properly sign up and provide information that simplifies operation I should be able to enter my personal info.
