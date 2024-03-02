@@ -1,5 +1,3 @@
-words
-
 Must Have
 As a users in order to watch content I should see a home screen showing the content
 As a users in I should be able search content so I can find the title or genre I want to watch
@@ -7,7 +5,7 @@ As a users when I click a video it should start playing
 As a Content Manager I should be able to add and remove conntent
 As a Content Manager I should be able to see  the amount of engadgement that the content gets
 
-
 Nice to Have
 As a user I inorder to find new content I should see recommendations based on what other people are watching
 As a user I should be able to create a playlist of videos I want to watch
+As a user I should be able to enter my personal info in order to sign up
