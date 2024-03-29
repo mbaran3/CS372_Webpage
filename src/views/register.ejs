@@ -1,0 +1,19 @@
+<h1>Register</h1>
+<h1>Login</h1>
+<% if (message) { %>
+    <%= message %>
+  <% } %>
+
+<form action = '/register' method="POST">
+    <div>
+        <label for="UserID">Name</label>
+        <input type = "text" id = "UserID" name ="UserID" required> 
+    </div>
+    <div>
+        <label for="Password">Password</label>
+        <input type="password" id = "Password" name ="Password" required> 
+
+    </div>
+    <button type = "submit"> Register </button>
+</form>
+<a href = "/login"> Register</a>

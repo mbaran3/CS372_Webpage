@@ -1,129 +1,109 @@
-//todo literally everything
-const express = require('express');
-const bodyParser = require('body-parser');
-const fs = require("fs");
+const express = require("express")
+const validateRegistatoin = require('./registrationvalidation')
+const path = require("path")
+const app = express()
+const bcrypt = require("bcrypt")
+const port = 8080
+const db = require("./mongodb")
+const passport = require("passport")
+const flash = require('express-flash')
+const session = require('express-session')
+const methodOverride = require('method-override')
 
-const app = express();
-const port = 8080;
+const viewsPath = path.join(__dirname, '/views')
 
-app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({ extended: true })); 
-error = {message:[""],message2:[""],message3:[""]}
-const users = require("./info.json");
+const initializePassport = require("./passport-config")
+const { name } = require("ejs")
+initializePassport(passport, 
+    async UserID => {
+        const user = await db.findOne({UserID: UserID})
+        return user
+    }, async getdbID => {
+        const user = await db.findOne({UserID: UserID})
+        return user._id
+    })
 
-app.post('/login', (req, res) =>{
-	error.message=""
-	app.post('/signup', (req, res) =>{
-		res.render('pages/signup',error)
-	})
-	if(users[req.body.userName]!=undefined) {
-		if( users[req.body.userName].strikes>=4) {
-		error.message=("Your Account is Locked")
-		  res.render('pages/login',error)
-		} else {
-			if(users[req.body.userName].passWord==req.body.passWord) {
-			  res.sendFile(__dirname + '/thePage.html')
-			users[req.body.userName].strikes=0;
-			} else {
-			users[req.body.userName].strikes++;
-			error.message=("Error: Invalid Password, "+(5-users[req.body.userName].strikes)+" Attempts Remaining")
-			  res.render('pages/login',error)
-			}
-		}
-	} else {
-		error.message="Error: Username Not Found"
-		res.render('pages/login',error)
-	}
-	fs.writeFile("./info.json",JSON.stringify(users),err => {if (err) throw err;});
+app.set(`view engine`, `ejs`)
+app.use(express.urlencoded({extended: false}))
+app.use(methodOverride('_method'))
+app.set("views", viewsPath)
+app.use(flash())
+app.use(session({
+    secret: 'secret code',
+    resave: false,
+    saveUninitialized: false
+}))
+app.use(passport.initialize())
+app.use(passport.session())
+
+
+app.get('/', checkAuthenticated, async(req, res) =>{
+    res.render('index.ejs', {message:""})
+    const user = await db.findOne({UserID: "zogwort"})
 })
 
-app.post('/signup', (req, res) =>{
-		error.message=""
-		error.message2=""
-		error.message3=""
-		user = req.body.userName
-		pass = req.body.passWord
-		if(user.length>=4) {
-			var bool = false;
-			for(let i=0; i<user.length;i++) {
-				if (user.charAt(i)!="_"&&(user.charAt(i)<"a"||user.charAt(i)>"z"))
-					bool = true
-			}
-			if (bool)
-				error.message="Error: Username Can Only Contain Lower Case and Underscores"
-		} else
-			error.message="Error: Username Must be 4 or More Characters"
+app.get('/login', checkNotAuthenticated, (req, res) =>{
+    res.render('login.ejs')
+})
+app.get('/register', checkNotAuthenticated, (req, res) =>{
+    res.render('register.ejs', {message: ""})
+})
 
-		if(pass.length>=9) {
-			var dot = false;
-			var special= false;
-			var cap= false;
-			var low= false;
-			var num= false;
-			for(let i=0; i<pass.length;i++) {
-				if ((pass.charAt(i)>="!"&&pass.charAt(i)<="/")||(pass.charAt(i)>=":"&&pass.charAt(i)<="@")||(pass.charAt(i)>="["&&pass.charAt(i)<="'")||(pass.charAt(i)>="{"&&pass.charAt(i)<="~"))
-					special = true;
-				if (pass.charAt(i)!=".")
-					dot = true;
-				if (pass.charAt(i)>="a" && pass.charAt(i)<="z")
-					low = true;
-				if (pass.charAt(i)>="A" && pass.charAt(i)<="Z")
-					cap = true;
-				if (pass.charAt(i)>="0" && pass.charAt(i)<="9")
-					num = true;
-			}
-			if(!(special&&dot&&low&&cap&&num))
-				error.message2=("Error: Password Does Not Meet Requirements ");
-		} else
-			error.message2="Error: Password Must be 9 or More characters"
-		if(pass!=req.body.pass2Word)
-			error.message3="Error: Passwords do Not Match"
-		if(error.message==""&&error.message2==""&&error.message3==""&&user!=""&&pass!="") {
-			if(users[user]==undefined) {
-				obj={passWord:pass,strikes:0}
-				users[user]=(obj);
-				fs.writeFile("./info.json",JSON.stringify(users),err => {if (err) throw err;});
-				error.message=""
-				console.log("Account Created!")
-				res.render('pages/login',error)
-			} else
-			error.message="Error: Username Taken"
-		} else
-		res.render('pages/signup',error)
+app.post('/register', checkNotAuthenticated, async(req, res)=>{
+    
+    checkPass = validateRegistatoin.checkPassword(req.body.Password)
+    checkUserID = validateRegistatoin.checkUserID(req.body.UserID)
+    if(checkPass.isValid && checkUserID.isValid){
+        try{
+
+            const hashedPassword = await bcrypt.hash(req.body.Password, 10)
+            const data = {
+                UserID: req.body.UserID,
+                Password: hashedPassword
+            }
+            await db.insertMany([data])
+            res.redirect('/login')
+            console.log("added User")
+        }
+        catch{
+    
+            res.render('register.ejs', {message: "UserID was already taken."})
+            console.log("failed to add user")
+        }
+    }
+    else{
+        if(!checkPass.isValid)
+            res.render('register.ejs', {message: checkPass.message})
+        else
+            res.render('register.ejs', {message: checkUserID.message})
+    }
 
 })
 
-app.get('/', (req, res) =>{
-		error.message=""
-		error.message2=""
-		error.message3=""
-  res.render('pages/login',error)
-});
-app.get('/login.html', (req, res) =>{
-		error.message=""
-		error.message2=""
-		error.message3=""
-  res.render('pages/login',error)
-});
-app.get('/signup.html', (req, res) =>{
-		error.message=""
-		error.message2=""
-		error.message3=""
-	  res.render('pages/signup',error)
-})
-app.get('/thePage.html', (req, res) =>{
-  res.sendFile(__dirname + '/thePage.html')
-})
-app.get('/favicon.png', (req, res) =>{
-  res.sendFile(__dirname + '/assets/favicon.png')
-})
-app.get('/info.json', (req, res) =>{
-  res.sendFile(__dirname + '/info.json')
+app.post('/login',checkNotAuthenticated, passport.authenticate('local',{
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: true
+}))
+
+app.delete('/logout', (req, res, next)=>{
+    req.logout((err)=>{
+        if(err) { return next(err)}
+        res.redirect('login')
+    })
 })
 
-app.listen(port, () =>{
-  console.log(`Server running on port : ${port}`)
-})
-
-
-
+function checkAuthenticated(req, res, next){
+    if(req.isAuthenticated()){
+        return next()
+    }
+    res.redirect('/login')
+}
+function checkNotAuthenticated(req, res, next){
+    if(req.isAuthenticated()){
+        return res.redirect('/')
+    }
+    return next()
+}
+app.listen(`${port}`)
+console.log(`Listening on port:${port}`)
