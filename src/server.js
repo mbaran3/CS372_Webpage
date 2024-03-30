@@ -38,8 +38,7 @@ app.use(passport.session())
 
 
 app.get('/', checkAuthenticated, async(req, res) =>{
-    res.render('index.ejs', {message:""})
-    const user = await db.findOne({UserID: "zogwort"})
+    res.render('index.ejs', {message: user.UserID})
 })
 
 app.get('/login', checkNotAuthenticated, (req, res) =>{
