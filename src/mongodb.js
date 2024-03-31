@@ -22,7 +22,24 @@ const loginInScheme = new mongoose.Schema({
         type: String
     }
 })
+const ContentScheme = new mongoose.Schema({
+    name: {
+        type: String,
+        require: true,
+        unique: true
+    },
+    discription:{
+        type: String,
+        require: false,
+        unique: false
+    }
+})
 
-const db = new mongoose.model("UserData", loginInScheme)
 
-module.exports = db
+const Users = new mongoose.model("Users", loginInScheme)
+const Content = new mongoose.model("Content", ContentScheme)
+
+module.exports = db = {
+    Users: Users,
+    Content: Content
+}

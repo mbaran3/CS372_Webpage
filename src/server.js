@@ -16,10 +16,10 @@ const initializePassport = require("./passport-config")
 const { name } = require("ejs")
 initializePassport(passport, 
     async UserID => {
-        const user = await db.findOne({UserID: UserID})
+        const user = await db.Users.findOne({UserID: UserID})
         return user
     }, async getdbID => {
-        const user = await db.findOne({UserID: UserID})
+        const user = await db.Users.findOne({UserID: UserID})
         return user._id
     })
 
@@ -60,7 +60,7 @@ app.post('/register', checkNotAuthenticated, async(req, res)=>{
                 UserID: req.body.UserID,
                 Password: hashedPassword
             }
-            await db.insertMany([data])
+            await db.Users.insertMany([data])
             res.redirect('/login')
             console.log("added User")
         }
