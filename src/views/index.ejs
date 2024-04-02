@@ -9,8 +9,12 @@
 </form>
 
 
+<%if(user.role === 'Viewer'){%>
+    <p>This is for Viewrs to see</p>
+<%}%>
+
 <% if (user.role === 'Admin') { %>
-    <form actoin="/changerole" method="POST">
+    <form action="/editUser" method="POST">
         <div>
             <label for="UserID">Search User</label>
             <input type = "text" id = "UserID" name ="UserID" required> 
@@ -28,3 +32,7 @@
         </div>
     </form>
   <% } %>
+
+  <%if (user.role === 'Content Manager'){ %>
+    <p>This is for Content Managers to See</p>
+  <%}%>

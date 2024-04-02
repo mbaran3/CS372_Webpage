@@ -41,19 +41,22 @@ app.use(passport.session())
 app.get('/', checkAuthenticated, async(req, res) =>{
     res.render('index.ejs')
 })
-app.get('/admin', checkAuthenticated, isAdmin, (req, res)=>{
-    res.render('admin.ejs')
+app.get('/editUser', checkAuthenticated, (req, res)=>{
+    res.render('index.ejs')
 })
+
 app.get('/login', checkNotAuthenticated, (req, res) =>{
     res.render('login.ejs')
 })
+
 app.get('/register', checkNotAuthenticated, (req, res) =>{
     res.render('register.ejs', {message: ""})
 })
-app.get('/admin.ejs', checkAuthenticated, (req, res)=>{
-    res.render('admin.ejs')
-})
 
+app.post('/editUser', checkAuthenticated, isAdmin, async (req, res)=>{
+    await db.Users.findOneAndUpdate({UserID: req.body.UserID}, {role: req.body.Role})
+    console.log(req.body.Role)
+})
 
 
 app.post('/register', checkNotAuthenticated, async(req, res)=>{
@@ -99,6 +102,8 @@ app.delete('/logout', (req, res, next)=>{
         res.redirect('login')
     })
 })
+app.delete('/deleteUser', (req, res, next)=>{
+})
 
 function checkAuthenticated(req, res, next){
     if(req.isAuthenticated()){
@@ -106,18 +111,21 @@ function checkAuthenticated(req, res, next){
     }
     res.redirect('/login')
 }
+
 function checkNotAuthenticated(req, res, next){
     if(req.isAuthenticated()){
         res.redirect('/')
     }
     return next()
 }
+
 function isAdmin(req, res, next){
     if(user.role == "Admin"){
         return next()
     }
     res.redirect('/')
 }
+
 function isCotentEditor(req, res, next){
     if(user.role == "Content Editor"){
         return next()
