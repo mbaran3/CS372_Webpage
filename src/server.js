@@ -14,6 +14,7 @@ const viewsPath = path.join(__dirname, '/views')
 
 const initializePassport = require("./passport-config")
 const { name } = require("ejs")
+const { isContext } = require("vm")
 initializePassport(passport, 
     async UserID => {
         const user = await db.Users.findOne({UserID: UserID})
@@ -38,15 +39,22 @@ app.use(passport.session())
 
 
 app.get('/', checkAuthenticated, async(req, res) =>{
-    res.render('index.ejs', {message: user.UserID})
+    res.render('index.ejs')
 })
-
+app.get('/admin', checkAuthenticated, isAdmin, (req, res)=>{
+    res.render('admin.ejs')
+})
 app.get('/login', checkNotAuthenticated, (req, res) =>{
     res.render('login.ejs')
 })
 app.get('/register', checkNotAuthenticated, (req, res) =>{
     res.render('register.ejs', {message: ""})
 })
+app.get('/admin.ejs', checkAuthenticated, (req, res)=>{
+    res.render('admin.ejs')
+})
+
+
 
 app.post('/register', checkNotAuthenticated, async(req, res)=>{
     
@@ -100,9 +108,23 @@ function checkAuthenticated(req, res, next){
 }
 function checkNotAuthenticated(req, res, next){
     if(req.isAuthenticated()){
-        return res.redirect('/')
+        res.redirect('/')
     }
     return next()
 }
+function isAdmin(req, res, next){
+    if(user.role == "Admin"){
+        return next()
+    }
+    res.redirect('/')
+}
+function isCotentEditor(req, res, next){
+    if(user.role == "Content Editor"){
+        return next()
+    }
+    res.redirect('/')
+}
+
+
 app.listen(`${port}`)
 console.log(`Listening on port:${port}`)

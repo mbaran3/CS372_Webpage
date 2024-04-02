@@ -19,7 +19,8 @@ const loginInScheme = new mongoose.Schema({
         required: true
     },
     role:{
-        type: String
+        type: String,
+        default: "User"
     }
 })
 const ContentScheme = new mongoose.Schema({

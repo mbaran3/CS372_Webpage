@@ -1,4 +1,30 @@
-<h1>HI! <%= message%></h1>
+<hi>Home Page</hi>
+
+<div>
+    <p1>Hello   <%=user.UserID%> welcome to the home page</p1>
+</div>
+
 <form action="/logout?_method=DELETE" method="POST">
     <button type="submit"> Logout</button>
 </form>
+
+
+<% if (user.role === 'Admin') { %>
+    <form actoin="/changerole" method="POST">
+        <div>
+            <label for="UserID">Search User</label>
+            <input type = "text" id = "UserID" name ="UserID" required> 
+        </div>
+        <div> 
+            <label for="User Role"> Select role</label>
+            <select id="Role" name ="Role">
+                <option value="View">Viewer</option>
+                <option value="Content Manager"> Content Manager</option>
+                <option value="Admin"> Admin</option>
+            </select>
+        </div>
+        <div>
+            <button type="summit">Search</button>
+        </div>
+    </form>
+  <% } %>
