@@ -1,0 +1,16 @@
+<h2><%=video.name%></h2>
+<iframe width="420" height="315" src="https://www.youtube.com/embed/<%=video.link%>">
+</iframe>
+<p><%=video.discription%></p>
+
+<%if(user.role == "Content Manager"){%>
+
+<form action="/deleteVideo?_method=DELETE" method="POST">
+    <button type="submit"> Delete</button>
+</u></form>
+<form action="editVideo" method="POST">
+    
+</form>
+
+<%}%>
+

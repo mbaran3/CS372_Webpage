@@ -20,7 +20,7 @@ const loginInScheme = new mongoose.Schema({
     },
     role:{
         type: String,
-        default: "User"
+        default: "Viewer"
     }
 })
 const ContentScheme = new mongoose.Schema({
@@ -33,7 +33,15 @@ const ContentScheme = new mongoose.Schema({
         type: String,
         require: false,
         unique: false
+    },
+    link:{
+        type: String,
+        require: true
+    },
+    likes:{
+        likes:  []
     }
+
 })
 
 

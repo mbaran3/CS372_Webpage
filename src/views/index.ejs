@@ -1,17 +1,28 @@
-<hi>Home Page</hi>
-
+<h1>Home Page</h1>
 <div>
     <p1>Hello   <%=user.UserID%> welcome to the home page</p1>
 </div>
 
 <form action="/logout?_method=DELETE" method="POST">
-    <button type="submit"> Logout</button>
+    <button type="submit"> logout</button>
+</form>
+
+<form action="searchVideo" method="POST">
+    <div>
+        <label for="searchInput">Search</label>
+        <input type="text" id="searchVideo" name="searchVideo">
+    </div>
 </form>
 
 
-<%if(user.role === 'Viewer'){%>
-    <p>This is for Viewrs to see</p>
-<%}%>
+<h2>List of Videos</h2>
+<%if (videos){%>
+    <%videos.forEach((video)=>{%>
+        <a href="/<%=video.id%>">
+            <div><%=video.name%></div>
+        </a>
+<%})}%>
+</div>
 
 <% if (user.role === 'Admin') { %>
     <form action="/editUser" method="POST">
@@ -34,5 +45,6 @@
   <% } %>
 
   <%if (user.role === 'Content Manager'){ %>
-    <p>This is for Content Managers to See</p>
+  <h2>Content Manager Tools</h2>
+    <a href="/manageVideo">Manager Videos</a>
   <%}%>
