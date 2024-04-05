@@ -155,13 +155,34 @@ app.delete('/logout', (req, res, next)=>{
         res.redirect('login')
     })
 })
-app.get('/:id', async(req, res)=>{
+//app.post('/like/:id',checkAuthenticated, async(req, res)=>{
+//   console.log("the video ID")
+//  console.log(req.params)
+//    try{
+//        const video = await db.Content.findById(req.params.id)
+//        await db.Content.findOneAndUpdate(video,
+//                {$push: {likes: user.UserID}})
+//        res.render('show.ejs', {video: video})
+//    }catch(e){
+//        console.log('error liking')
+//        console.log(e)
+//        res.redirect('/')
+//    }
+//})
+app.delete('/delatevideo', isContentEditor, checkAuthenticated, async(req, res)=>{
+    await db.Conotent.findById(req.params.id)
+})
+app.get('/:id', checkAuthenticated, async(req, res)=>{
+
    try{
+    
     const video= await db.Content.findById(req.params.id).
     populate('name').exec()
     res.render('show.ejs', {video: video})
-   }catch{
-    console.log('error')
+    await db.Content.findOneAndUpdate(video, {$inc: {views : 1}})
+
+   }
+   catch{
     res.redirect('/')
    } 
 })

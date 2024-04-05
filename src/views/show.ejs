@@ -1,16 +1,22 @@
+<h1>
+    <a href="/">Home</a>
+</h1>
 <h2><%=video.name%></h2>
 <iframe width="420" height="315" src="https://www.youtube.com/embed/<%=video.link%>">
 </iframe>
 <p><%=video.discription%></p>
 
+
 <%if(user.role == "Content Manager"){%>
 
-<form action="/deleteVideo?_method=DELETE" method="POST">
-    <button type="submit"> Delete</button>
-</u></form>
-<form action="editVideo" method="POST">
-    
+<form action="/comment" method="POST" >
+<label>Commeent</label>
+<input type="text" name="comment"></input>
+<button type="submit">Submit</button>
 </form>
-
 <%}%>
 
+<%if(user.role == "Marketing Masjfnager"){%>
+    <p>Views: <%=video.views%></p>
+    <p>Likes: <%=video.likes.length()%>></p>
+<%}%>

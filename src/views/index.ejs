@@ -3,9 +3,7 @@
     <p1>Hello   <%=user.UserID%> welcome to the home page</p1>
 </div>
 
-<form action="/logout?_method=DELETE" method="POST">
-    <button type="submit"> logout</button>
-</form>
+
 
 <form action="searchVideo" method="POST">
     <div>
@@ -48,3 +46,8 @@
   <h2>Content Manager Tools</h2>
     <a href="/manageVideo">Manager Videos</a>
   <%}%>
+  
+  
+ <form action="/logout?_method=DELETE" method="POST">
+    <button type="submit"> logout</button>
+</form>

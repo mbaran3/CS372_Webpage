@@ -8,6 +8,7 @@ mongoose.connect("mongodb://localhost:27017/webpage2")
     console.log("Failed to connected")
 })
 
+
 const loginInScheme = new mongoose.Schema({
     UserID:{
         type: String,
@@ -38,8 +39,13 @@ const ContentScheme = new mongoose.Schema({
         type: String,
         require: true
     },
-    likes:{
-        likes:  []
+    likes:[String],
+    views:{
+        type: Number,
+        default: 0
+    },
+    comment:{
+        type:String
     }
 
 })
