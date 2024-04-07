@@ -5,18 +5,30 @@
 <iframe width="420" height="315" src="https://www.youtube.com/embed/<%=video.link%>">
 </iframe>
 <p><%=video.discription%></p>
+<p>Views: <%=video.views%></p>
+<p>Likes: <%=video.likes.length%></p>
 
+<form action="<%=video._id%>/like" method="POST">
+<button type="submit">Like</button>
+</form>
 
 <%if(user.role == "Content Manager"){%>
 
-<form action="/comment" method="POST" >
+<form action="/<%=video._id%>/comment" method="POST" >
 <label>Commeent</label>
-<input type="text" name="comment"></input>
+<input type="text" name="comment" id="comment" name="comment"></input>
 <button type="submit">Submit</button>
 </form>
+
 <%}%>
 
-<%if(user.role == "Marketing Masjfnager"){%>
-    <p>Views: <%=video.views%></p>
-    <p>Likes: <%=video.likes.length()%>></p>
+<%if(user.role === "Marketing Manager"){%>
+<h1>Comments</h1>
+    <%if(video.comment){%>
+        <%video.comment.forEach((item)=>{%>
+            <div>
+                <P><%=item[0]%>: <%=item[1]%></P> 
+            </div>
+        <%})%>
+    <%}%>
 <%}%>

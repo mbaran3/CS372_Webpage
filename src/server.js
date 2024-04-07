@@ -155,20 +155,47 @@ app.delete('/logout', (req, res, next)=>{
         res.redirect('login')
     })
 })
-//app.post('/like/:id',checkAuthenticated, async(req, res)=>{
-//   console.log("the video ID")
-//  console.log(req.params)
-//    try{
-//        const video = await db.Content.findById(req.params.id)
-//        await db.Content.findOneAndUpdate(video,
-//                {$push: {likes: user.UserID}})
-//        res.render('show.ejs', {video: video})
-//    }catch(e){
-//        console.log('error liking')
-//        console.log(e)
-//        res.redirect('/')
-//    }
-//})
+app.post('/:id/like',checkAuthenticated,  async(req, res)=>{
+
+    const video = await db.Content.findById(req.params.id)
+    if(!video.likes.includes(user._id)){
+        try{
+            liked = await db.Content.updateOne(video,
+                    {$addToSet: {likes: user._id}})
+            res.redirect(`/${req.params.id}`)
+
+        }catch(e){
+            res.redirect(`/${req.params.id}`)
+        }
+    }else{
+        await db.Content.updateOne(video,
+                {$pull: {likes: user._id}})
+        res.redirect(`/${req.params.id}`)
+    }
+    
+})
+
+app.post('/searchVideo', checkAuthenticated, async(req, res)=>{
+    const video = await db.Content.findOne({name: req.body.searchVideo})
+    if(video)
+        res.redirect(`/${video._id}`)
+    else{
+        console.log("video not found")
+    }
+})
+
+
+app.post('/:id/comment', checkAuthenticated, isContentEditor, async(req, res)=>{
+    try{
+        const video = await db.Content.findOneAndUpdate({_id: req.params.id}, 
+                {$push: {comment: [user.UserID, req.body.comment]}})
+        res.render(`/${req.params.id}`, {video: video})
+    }catch{
+        console.log('error')
+        res.redirect('/')
+    }
+})
+
 app.delete('/delatevideo', isContentEditor, checkAuthenticated, async(req, res)=>{
     await db.Conotent.findById(req.params.id)
 })

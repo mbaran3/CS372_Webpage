@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
 
+
 mongoose.connect("mongodb://localhost:27017/webpage2")
 .then(()=>{
     console.log("mongo conncted")
@@ -44,9 +45,8 @@ const ContentScheme = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    comment:{
-        type:String
-    }
+    comment:[]
+    
 
 })
 

@@ -4,14 +4,14 @@
 </div>
 
 
-
 <form action="searchVideo" method="POST">
     <div>
-        <label for="searchInput">Search</label>
+        <div><label>Search Video</label></div>
+        <label for="searchInput"></label>
         <input type="text" id="searchVideo" name="searchVideo">
+        <button type="Submit">Search</button>
     </div>
 </form>
-
 
 <h2>List of Videos</h2>
 <%if (videos){%>
@@ -23,6 +23,7 @@
 </div>
 
 <% if (user.role === 'Admin') { %>
+<h1>Admin tools</h1>
     <form action="/editUser" method="POST">
         <div>
             <label for="UserID">Search User</label>
@@ -34,6 +35,7 @@
                 <option value="View">Viewer</option>
                 <option value="Content Manager"> Content Manager</option>
                 <option value="Admin"> Admin</option>
+                <option value="Marketing Manager">Marketing Manager</oopion>
             </select>
         </div>
         <div>
