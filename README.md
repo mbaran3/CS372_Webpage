@@ -5,5 +5,7 @@ The src directory contains all the source code used.
 
 ## To Run the Server
 navigate to the src directory\
+```
     npm run start\
+```
 the first create User will be set to Admin\
