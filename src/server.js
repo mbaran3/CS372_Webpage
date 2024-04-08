@@ -118,14 +118,24 @@ app.post('/register', checkNotAuthenticated, async(req, res)=>{
     
     checkPass = validateRegistatoin.checkPassword(req.body.Password)
     checkUserID = validateRegistatoin.checkUserID(req.body.UserID)
+    
     if(checkPass.isValid && checkUserID.isValid){
         try{
-
             const hashedPassword = await bcrypt.hash(req.body.Password, 10)
-            const data = {
-                UserID: req.body.UserID,
-                Password: hashedPassword
+            if(await db.Users.countDocuments() == 0){
+                data = {
+                    UserID: req.body.UserID,
+                    Password: hashedPassword,
+                    role: "Admin"
+                }               
+            }else{
+                data = {
+                    UserID: req.body.UserID,
+                    Password: hashedPassword,
+                    role: "Viewer"
+                }
             }
+            
             await db.Users.insertMany([data])
             res.redirect('/login')
             console.log("added User")
@@ -180,7 +190,7 @@ app.post('/searchVideo', checkAuthenticated, async(req, res)=>{
     if(video)
         res.redirect(`/${video._id}`)
     else{
-        console.log("video not found")
+        res.redirect('/')
     }
 })
 
@@ -189,7 +199,7 @@ app.post('/:id/comment', checkAuthenticated, isContentEditor, async(req, res)=>{
     try{
         const video = await db.Content.findOneAndUpdate({_id: req.params.id}, 
                 {$push: {comment: [user.UserID, req.body.comment]}})
-        res.render(`/${req.params.id}`, {video: video})
+        res.redirect(`/${req.params.id}`)
     }catch{
         console.log('error')
         res.redirect('/')

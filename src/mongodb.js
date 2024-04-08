@@ -22,7 +22,6 @@ const loginInScheme = new mongoose.Schema({
     },
     role:{
         type: String,
-        default: "Viewer"
     }
 })
 const ContentScheme = new mongoose.Schema({
