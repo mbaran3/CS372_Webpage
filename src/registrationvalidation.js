@@ -31,16 +31,13 @@ function checkUserID(userID){
 			var bool = false;
 			for(let i=0; i<userID.length;i++) {
 				if (userID.charAt(i)!="_"&&(userID.charAt(i)<"a"||userID.charAt(i)>"z"))
-					return 
-			}
-			if (bool)
-				return {isValid:false, message:"Error: Username Can Only Contain Lower Case and Underscores"}
-		    }
+                        return {isValid:false, message:"Error: Username Can Only Contain Lower Case and Underscores"}
+            }
+            return {isValid: true, message: ""}
+        }
         else{
 			return {isValid: false, message: "Error: Username Must be 4 or More Characters"}
         }
-        return {isValid: true, message: "The UserID is a valid"}
-
 }
 
 module.exports = {
