@@ -12,7 +12,7 @@
 <button type="submit">Like</button>
 </form>
 
-<%if(user.role == "Content Manager"){%>
+<%if(user.role == "Marketing Manager"){%>
 
 <form action="/<%=video._id%>/comment" method="POST" >
 <label>Comment</label>
@@ -20,9 +20,10 @@
 <button type="submit">Submit</button>
 </form>
 
+
 <%}%>
 
-<%if(user.role === "Marketing Manager"){%>
+<%if(user.role === "Content Manager"){%>
 <h1>Comments</h1>
     <%if(video.comment){%>
         <%video.comment.forEach((item)=>{%>
