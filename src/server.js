@@ -205,10 +205,6 @@ app.post('/:id/comment', checkAuthenticated, isContentEditor, async(req, res)=>{
         res.redirect('/')
     }
 })
-
-app.delete('/delatevideo', isContentEditor, checkAuthenticated, async(req, res)=>{
-    await db.Conotent.findById(req.params.id)
-})
 app.get('/:id', checkAuthenticated, async(req, res)=>{
 
    try{
@@ -223,10 +219,10 @@ app.get('/:id', checkAuthenticated, async(req, res)=>{
     res.redirect('/')
    } 
 })
-
-app.delete('/deleteVideo', (req, res)=>{
-    console.log(req.body.video)
-   db.Content.deleteOne() 
+app.post('/:id/delete', async(req, res)=>{
+    console.log(req.params)
+    await db.Content.deleteOne({_id: req.params.id})
+    res.redirect('/')
 })
 
 function checkAuthenticated(req, res, next){

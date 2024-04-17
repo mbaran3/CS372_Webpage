@@ -31,5 +31,8 @@
                 <P><%=item[0]%>: <%=item[1]%></P> 
             </div>
         <%})%>
+    <form action="/<%=video._id%>/delete" method="POST">
+        <button type="submit">Delete</button>
+    </form>
     <%}%>
 <%}%>
