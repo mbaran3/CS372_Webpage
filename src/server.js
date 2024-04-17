@@ -54,24 +54,24 @@ app.get('/register', checkNotAuthenticated, (req, res) =>{
     res.render('register.ejs', {message: ""})
 })
 
-app.post('/editUser', checkAuthenticated, isAdmin, async (req, res)=>{
+app.post('/editUser', checkAuthenticated,  async (req, res)=>{
     const userEdit = await db.Users.findOneAndUpdate({UserID: req.body.UserID}, {role: req.body.Role})
     if (userEdit != null){
         console.log("User was changed")
     }
     res.redirect('/')
 })
-app.get('/manageVideo', checkAuthenticated, isContentEditor, async (req, res)=>{
+app.get('/manageVideo', checkAuthenticated, async (req, res)=>{
     res.render('manageVideo.ejs')
 })
-app.get('/addVideo', checkAuthenticated, isContentEditor, (req, res)=>{
+app.get('/addVideo', checkAuthenticated, (req, res)=>{
     res.render('addVideo.ejs')
 })
 
-app.get('/editVideo', checkAuthenticated, isContentEditor, (req, res)=>{
+app.get('/editVideo', checkAuthenticated, (req, res)=>{
     res.render('editVideo.ejs')
 })
-app.post('/editVideo', checkAuthenticated, isContentEditor, async(req, res)=>{
+app.post('/editVideo', checkAuthenticated, async (req, res)=>{
     const video = await db.Content.findOne({name: req.body.name})
     if(req.body.newLink == null){
         req.body.newLink = video.link
@@ -95,7 +95,7 @@ app.post('/editVideo', checkAuthenticated, isContentEditor, async(req, res)=>{
     res.redirect('/')
 })
 
-app.post('/addVideo', checkAuthenticated, isContentEditor, async(req, res)=>{
+app.post('/addVideo', checkAuthenticated, async(req, res)=>{
 
     const data = {
         name: req.body.videoName,
@@ -195,7 +195,7 @@ app.post('/searchVideo', checkAuthenticated, async(req, res)=>{
 })
 
 
-app.post('/:id/comment', checkAuthenticated, isContentEditor, async(req, res)=>{
+app.post('/:id/comment', checkAuthenticated, async(req, res)=>{
     try{
         const video = await db.Content.findOneAndUpdate({_id: req.params.id}, 
                 {$push: {comment: [user.UserID, req.body.comment]}})
@@ -225,33 +225,20 @@ app.post('/:id/delete', async(req, res)=>{
     res.redirect('/')
 })
 
-function checkAuthenticated(req, res, next){
-    if(req.isAuthenticated()){
-        return next()
+function checkAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+      return next()
     }
+  
     res.redirect('/login')
-}
-
-function checkNotAuthenticated(req, res, next){
-    if(req.isAuthenticated()){
-        res.redirect('/')
+  }
+  
+  function checkNotAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+      return res.redirect('/')
     }
-    return next()
-}
-
-function isAdmin(req, res, next){
-    if(user.role == "Admin"){
-        return next()
-    }
-    res.redirect('/')
-}
-
-function isContentEditor(req, res, next){
-    if(user.role == "Content Manager"){
-        return next()
-    }
-    res.redirect('/')
-}
+    next()
+  }
 
 function createLink(link){
     const youtubeIdRegex =
