@@ -1,0 +1,12 @@
+services:
+  mywebpage:
+    build: .
+    depends_on:
+      - mongo
+    ports:
+      - 8080:8080
+
+  mongo:
+    image: mongo:4.4.29
+    ports:
+      - 27017:27017
