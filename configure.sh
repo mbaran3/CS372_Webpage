@@ -1,1 +1,0 @@
-echo "{}" > "src/info.json"
