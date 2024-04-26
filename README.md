@@ -20,5 +20,13 @@ can be used from the folder CS372_Webpage
 npm run start
 ```
 
+## To Install with Docker
+From the CS372_Webpage directory
 
-
+```
+    docker compose up
+```
+for a version that detached
+``` 
+    docker compuse up -d
+```

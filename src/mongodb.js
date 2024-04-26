@@ -1,12 +1,14 @@
 const mongoose = require("mongoose")
+const dotenv = require('dotenv').config()
 
 
-mongoose.connect("mongodb://localhost:27017/webpage2")
-.then(()=>{
+mongoose.connect(process.env.MONGODB_URI)
+    .then(()=>{
     console.log("mongo conncted")
 })
-.catch(()=>{
-    console.log("Failed to connected")
+.catch((err)=>{
+    console.log("mongo failed to connect")
+    console.log(err)
 })
 
 

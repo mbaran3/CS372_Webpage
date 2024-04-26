@@ -3,7 +3,7 @@ const validateRegistatoin = require('./registrationvalidation')
 const path = require("path")
 const app = express()
 const bcrypt = require("bcrypt")
-const port = 8080
+const dotenv = require('dotenv').config();
 const db = require("./mongodb")
 const passport = require("passport")
 const flash = require('express-flash')
@@ -118,10 +118,11 @@ app.post('/register', checkNotAuthenticated, async(req, res)=>{
     
     checkPass = validateRegistatoin.checkPassword(req.body.Password)
     checkUserID = validateRegistatoin.checkUserID(req.body.UserID)
-    
     if(checkPass.isValid && checkUserID.isValid){
         try{
+            console.log("BEFORE")
             const hashedPassword = await bcrypt.hash(req.body.Password, 10)
+            console.log("HERE")
             if(await db.Users.countDocuments() == 0){
                 data = {
                     UserID: req.body.UserID,
@@ -133,12 +134,10 @@ app.post('/register', checkNotAuthenticated, async(req, res)=>{
                     UserID: req.body.UserID,
                     Password: hashedPassword,
                     role: "Viewer"
-                }
+                } 
             }
-            
             await db.Users.insertMany([data])
             res.redirect('/login')
-            console.log("added User")
         }
         catch{
             res.render('register.ejs', {message: "UserID was already taken."})
@@ -247,6 +246,6 @@ function createLink(link){
     return link.match(youtubeIdRegex)?.groups?.id || false;
 }
 
-
-app.listen(`${port}`)
-console.log(`Listening on port:${port}`)
+const PORT = process.env.PORT || 8080
+app.listen(`${PORT}`)
+console.log(`Listening on port:${PORT}`)
