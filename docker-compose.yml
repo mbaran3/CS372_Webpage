@@ -1,0 +1,25 @@
+services:
+  mongodb:
+    image: mongo:latest
+    restart: always
+    ports:
+      - 2717:27017
+    volumes:
+      - mongodb://data/db
+
+
+
+  webpage:
+      build: .
+      ports:
+        - 8080:8080
+      environment:
+        PORT: 8080
+        MONGODB_URI: mongodb://mongodb:27017
+        DB_NAME: webpage
+      depends_on:
+        - mongodb
+
+
+volumes:
+  mongodb: {}
