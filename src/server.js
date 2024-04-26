@@ -65,7 +65,7 @@ app.get('/manageVideo', checkAuthenticated, async (req, res)=>{
     res.render('manageVideo.ejs')
 })
 app.get('/addVideo', checkAuthenticated, (req, res)=>{
-    res.render('addVideo.ejs')
+    res.render('addVideo.ejs', { message: "" })
 })
 
 app.get('/editVideo', checkAuthenticated, (req, res)=>{
@@ -110,7 +110,7 @@ app.post('/addVideo', checkAuthenticated, async(req, res)=>{
         res.redirect('/')
     }
     catch{
-        console.log("error adding content")
+        res.render('addVideo', {message: "Video name is Already taken"} )
     }
 })       
 

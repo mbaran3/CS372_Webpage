@@ -1,5 +1,7 @@
 <h1>This is for adding a video</h1>
-
+<%if(message){ %>
+    <%=message%>
+<%}%>
 <form action = '/addVideo' method="POST">
     <div>
         <label for="newVideoName" >Name of Video</label>
@@ -12,7 +14,7 @@
 
     </div>
     <label for="videoLink">Youtube Link</label>
-    <input type = "text" id = "videoLink" name = "videoLink"></input>
+    <input type = "text" id = "videoLink" name = "videoLink" require></input>
     <div>
         <button type="submit">Add video</button>
     </div>
