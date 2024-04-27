@@ -110,7 +110,6 @@ app.post('/addVideo', checkAuthenticated, async(req, res)=>{
         link: createLink(req.body.videoLink),
     }
     console.log(req.body.videoDescription)
-    console.log(data)
     try{
         if(data.link){
             newContent = await db.Content.insertMany([data])
