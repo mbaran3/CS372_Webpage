@@ -69,10 +69,11 @@ app.get('/addVideo', checkAuthenticated, (req, res)=>{
 })
 
 app.get('/editVideo', checkAuthenticated, (req, res)=>{
-    res.render('editVideo.ejs')
+    res.render('editVideo.ejs', {message: ""})
 })
 app.post('/editVideo', checkAuthenticated, async (req, res)=>{
     const video = await db.Content.findOne({name: req.body.name})
+    newLink = createLink(req.body.newLink)
     if(req.body.newLink == null){
         req.body.newLink = video.link
     }
@@ -82,21 +83,27 @@ app.post('/editVideo', checkAuthenticated, async (req, res)=>{
     if(req.body.newDiscription == null){
         req.body.newDiscription = video.discription
     }
-    const editVideo = await db.Content.findOneAndUpdate({name: req.body.name},
-                    {
-                        name: req.body.newName,
-                        discription: req.body.newDiscription,
-                        link: createLink(req.body.newLink)
-                    })
-    if(editVideo != null){
-        console.log("video was changed")
-    }
-
-    res.redirect('/')
+    if(newLink){
+        try{
+            await db.Content.findOneAndUpdate({name: req.body.name},
+                {
+                    name: req.body.newName,
+                    discription: req.body.newDiscription,
+                    link: newLink 
+                })
+                res.redirect('/')
+        }catch{
+            res.render('editVideo', {message: "That name is already taken"})
+        }
+    
+    }else
+        res.render('editVideo', {message: "Link is not a Youtube link"})
+    
 })
 
 app.post('/addVideo', checkAuthenticated, async(req, res)=>{
 
+    
     const data = {
         name: req.body.videoName,
         discription: req.body.videoDescription,
@@ -105,9 +112,12 @@ app.post('/addVideo', checkAuthenticated, async(req, res)=>{
     console.log(req.body.videoDescription)
     console.log(data)
     try{
-        newContent = await db.Content.insertMany([data])
-        console.log(newContent)
-        res.redirect('/')
+        if(data.link){
+            newContent = await db.Content.insertMany([data])
+            console.log(newContent)
+            res.redirect('/')
+        }else
+            res.render('addVideo', { message: "Link is not a Youtube link"})
     }
     catch{
         res.render('addVideo', {message: "Video name is Already taken"} )
